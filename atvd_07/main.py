@@ -1,74 +1,92 @@
-# dicionario
-pessoa = {}
+# bibliotecas
+import os
 
-# inserindo a dados da pessoa
-try:
-    pessoa['Nome'] = (input("Informe a nome: "))
-    pessoa['idade'] = int(input("Informe a idade: "))
-    pessoa['E-mail'] = (input("Informe a E-mail: "))
-    pessoa['CPF'] = int(input("Informe a CPF: "))
-    pessoa['Data de Nascimento'] = int(input("Informe a Data de Nascimento: "))
-    pessoa['Gênero'] = (input("Informe o Gênero: "))
-    pessoa['Telefone'] = int(input("Informe o Telefone: "))
+#lista
+usuarios = []
 
-except Exception as e:
-    print(f"Não foi possivel inserir o novo valor. {e},")
-finally:
-    print(f"Nome: {pessoa.get('nome')}")
-    print(f"Idade: {pessoa.get('Idade')}")
-    print(f"E-mail: {pessoa.get('email')}")
-    print(f"CPF: {pessoa.get('CPF')}")
-    print(f"Data de Nascimento: {pessoa.get('Data de Nascimento')}")
-    print(f"Gênero: {pessoa.get('Gênero')}")
-    print(f"Telefone: {pessoa.get('Telefone')}")
-
+# loop
 while True:
-    print(f" {'_'*20} MENU pessoas {'_'*20}/20")
-    print("1 - Cadastrar nova chave")
-    print("2 - Exibir dados do usuário")
-    print("3 - Alterar valor de uma chave")
-    print("4 - Excluir uma chave")
+    # menu
+    print(f" {'_'*20} MENU pessoas {'_'*20}\n")
+    print("1 - Inserir dados do novo usuário")
+    print("2 - Exibir lista de usuário")
+    print("3 - Alterar dados de um usuário já cadastrado")
+    print("4 - Excluir usuário da lista")
     print("5 - Sair do programa")
-    opcao = input('Escolha uma opção (1-5):').strip ()
-    os.system("cls")
+    opcao = input("Informe a opção desejada: ")
+    os.system("cls" if os.name == "nt" else "clear")
     match opcao:
         case "1":
-            chave = input("Informe o nome da chave que deseja inserir: ").lower().strip()
-            pessoa[chave] = input("Informe o valor da chave: ")
-               
-            os.system("cls")
-            print('Chave cadastrada com sucesso!')
+            # inicializa o dicionário
+            usuario = {}
 
-            continue
+            # input do usuario
+            usuarios['Nome'] = input("Informe a nome: ").title().strip
+            usuarios['data de nascimento'] = input("data de nascimento: ").strip
+            usuarios['E-mail'] = input("Informe a E-mail: ").strip()
+            usuarios['CPF'] = input("Informe a CPF: ").strip()
+            usuarios['Telefone'] = input("Informe o Telefone: ")
+            usuarios['Profissão'] = input("Profissão: ")
+            usuarios['Gênero'] = input("Informe o Gênero: ")
+
+            os.system("cls" if os.name == "nt" else "clear")
+            try:
+                # inserir os dados do dicionário na lista
+                usuarios.append(usuario) # type:ignore
+                print('Usuário cadastrado com sucesso!')
+            except Exception as e:
+                print(f"Não foi possivel inserir o novo valor. {e},")
+            finally:
+                continue
         case "2":
-           for chave in pesssoa: # type: ignore
-            print(f"{chave.capitalize()}: {pesssoa.get(chave)}") # type: ignore
-            print("\n")
+           print("\nLista de usuários:")
+           for i in range(Len(usuarios)): # type: ignore
+            print(f"{'_'*40}\n")
+            print(f"Índice: {i}.")
+            for chave in usuarios[i]: # type: ignore
+                print(f"{chave.capitalize()}: {usuarios[i].get(chave)}.") # type: ignore
             continue
-              
         case "3":
-            chave = input("Informe o nome da chave que deseja alterar: ").lower().strip()
-
-            if chave in pessoa:
-                pessoa[chave] = input(f"Informe o valor da chave: ").strip()
-                os.system("cls")
-                print("Valor da chave alterado com sucesso!")
-            else:
-                os.system("cls")
-                print("Chave não encontrada.")
-            continue
-
+            try:
+                i = int(input("Informe o índice desejado:"))
+                if i >= 0 and i < Len(usuarios): # type: ignore
+                    for chave in usuarios[i]: # Type:ignore
+                        print(f"{chave.capitalize()}. {usuarios[i].get(chave)} ")# Type:ignore
+                    chave_escolhida = input("Informe a chave que deseja alterar:" ).lower().strip()
+                    usuarios[i][chave_escolhida] = input("Informe o novo valor: ").strip() 
+                    os.system("cls" if os.name == "nt" else "clear")
+                    print("Chave alterada com sucesso.")
+                else:
+                    print("Indice inválido.")
+            except Exception as e:
+                print(f"Não foi possivel alterar os dados. {e}.")
+            finally:
+                continue
         case "4":
-            chave = input("Informe o nome da chave que deseja deletar: ").strip().lower()
-            confirmacao = input(f"Tem certeza de que deseja excluir {chave}?(s/n)").lower().strip()
-            os.system("cls")
-    
-            if confirmacao is "s":
-                del pessoa[chave]
-                print(f"Chave excluida com sucesso!")
-            else:
-                print("chave não foi exluida.")
-            continue
+            try:
+                i = int(input("Informe o índice:"))
+                if i >= 0 and i < Len(usuarios): # type: ignore
+                    for chave in usuarios[i]: # Type:ignore
+                        print(f"{chave.capitalize()}. {usuarios[i].get(chave)} ")# Type:ignore
+                    confirma = input("Tem certeza de que deseja exluir esse usuário? (s/n) ").lower().strip()
+                    match confirma: # type: ignore
+                        case "s":
+                            del(usuarios[i])
+                            os.system("cls" if os.name == "nt" else "clear")
+                            print("Usuário deletado com sucesso.")
+                        case "n":
+                            os.system("cls" if os.name == "nt" else "clear")
+                        case _:
+                            os.system("cls" if os.name == "nt" else "clear")
+                            print("opção inválida. Operação cancelada.")
+                else:
+                    print("Indice inválido.")
+            except Exception as e:
+                print(f"Não foi possivel excluir usuário. {e}.")
+            finally:
+                continue
         case "5":
             print("Programa encerrado...")
             break
+        case _:
+            print("Opção Inválida.")

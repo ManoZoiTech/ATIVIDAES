@@ -40,10 +40,10 @@ while True:
 
         case "4":
             chave = input("Informe o nome da chave que deseja deletar: ").strip().lower()
-            confirmacao = input(f"Tem certeza de que deseja excluir {chave}?"(s/n)").lower().strip()
+            confirmacao = input(f"Tem certeza de que deseja excluir {chave}?(s/n)").lower().strip()
             os.system("cls")
     
-            if confirmacao is "s"
+            if confirmacao is "s":
                 del usuario[chave]
                 print(f"Chave excluida com sucesso!")
             else:
@@ -74,6 +74,5 @@ com o seguinte menu:
 -Sair do programa
 # NOTE - os dados a serem inseridos precisam ter a ver com os dados de usuario
 """
-
 
 
